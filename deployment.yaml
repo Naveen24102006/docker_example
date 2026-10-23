@@ -1,12 +1,19 @@
-apiVersion: v1
-kind: Service
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: html-demo-service
+  name: html-demo
 spec:
-  type: NodePort
+  replicas: 1
   selector:
-    app: html-demo1
-  ports:
-    - port: 80
-      targetPort: 80
-      nodePort: 30011
+    matchLabels:
+      app: html-demo
+  template:
+    metadata:
+      labels:
+        app: html-demo
+    spec:
+      containers:
+        - name: html-demo
+          image: naveen031756/html-demo1:latest
+          ports:
+            - containerPort: 80
